@@ -40,7 +40,7 @@
             </label>
           </td>
           <td class="text-right">
-            <input class="input-text" id="altura" formControlName="altura">
+            <input class="input" id="altura" formControlName="altura">
           </td>
         </tr>
         <tr>
@@ -50,7 +50,7 @@
             </label>
           </td>
           <td class="text-right">
-            <input class="input-text" id="peso" formControlName="peso">
+            <input class="input" id="peso" formControlName="peso">
           </td>
         </tr>
         <tr>
@@ -59,15 +59,22 @@
               <b>Superpoderes:</b>
             </label>
           </td>
-          <td class="text-right">
-            <mat-form-field>
-                <mat-select [(value)]="poderesSelecionados" multiple>
-                    <mat-option *ngFor="let poder in superpoderes" [value]="poder.id">
-                        {{ poder.superpoder }}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-          </td>
+          <div class="table">
+            <table>
+              <tr>
+                <th>Poder</th>
+                <th>Descrição</th>
+                <th>Selecionar</th>
+              </tr>
+              <tr *ngFor="let poder in superpoderes">
+                <td>{{poder.superpoder}}</td>
+                <td>{{poder.descricao}}</td>
+                <td>
+                  <input type="checkbox" [(ngModel)]="isChecked" (change)="adicionarPoder(poder)">
+                </td>
+              </tr>
+            </table>
+          </div>
         </tr>
       </table>
       <br>

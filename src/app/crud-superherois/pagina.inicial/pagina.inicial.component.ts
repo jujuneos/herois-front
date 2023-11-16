@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Heroi } from '../../models/heroi';
 import { Observable } from 'rxjs';
-import { DadosHeroisComponent } from '../dados.herois/dados.herois.component';
-import { HeroiService } from '../../services/heroi.service';
 import { Router } from '@angular/router';
+import { CadastrarComponent } from '../salvar.heroi/cadastrar/cadastrar.component';
+import { HeroisService } from '../../services/herois.service';
 
 @Component({
   selector: 'app-pagina.inicial',
@@ -14,10 +13,10 @@ import { Router } from '@angular/router';
 export class PaginaInicialComponent implements OnInit {
   heroi = {} as Heroi;
   herois: Observable<Heroi[]> | undefined;
-  salvar = {} as DadosHeroisComponent;
+  salvar = {} as CadastrarComponent;
 
   constructor(
-    private heroiService: HeroiService,
+    private heroiService: HeroisService,
     private router: Router
   ) {}
 

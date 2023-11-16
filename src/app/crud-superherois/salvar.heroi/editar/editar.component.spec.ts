@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DadosHeroisComponent } from './dados.herois.component';
+import { EditarComponent } from './editar.component';
 
-describe('DadosHeroisComponent', () => {
-  let component: DadosHeroisComponent;
-  let fixture: ComponentFixture<DadosHeroisComponent>;
+describe('EditarComponent', () => {
+  let component: EditarComponent;
+  let fixture: ComponentFixture<EditarComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DadosHeroisComponent]
+      declarations: [EditarComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(DadosHeroisComponent);
+    fixture = TestBed.createComponent(EditarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

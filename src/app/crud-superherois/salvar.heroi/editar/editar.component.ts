@@ -1,31 +1,30 @@
-import { Component } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Heroi } from '../../../models/heroi';
+import { Observable } from 'rxjs';
 import { Superpoder } from '../../../models/superpoder';
-import { HeroiService } from '../../../services/heroi.service';
-import { SuperpoderService } from '../../../services/superpoder.service';
-import { PaginaInicialComponent } from '../../pagina.inicial/pagina.inicial.component';
+import { ActivatedRoute } from '@angular/router';
+import { PoderesService } from '../../../services/poderes.service';
+import { HeroisService } from '../../../services/herois.service';
 
 @Component({
-  selector: 'app-editar.heroi',
-  templateUrl: './editar.heroi.component.html',
-  styleUrl: './editar.heroi.component.css'
+  selector: 'app-editar',
+  templateUrl: './editar.component.html',
+  styleUrl: './editar.component.css'
 })
-export class EditarHeroiComponent {
+export class EditarComponent implements OnInit {
   id: number = 0;
-  heroiForm: FormGroup;
+  heroiForm = {} as FormGroup;
   heroi = {} as Heroi;
-  paginaInicial = {} as PaginaInicialComponent;
   superpoderes: Observable<Superpoder[]> | undefined;
   poderesSelecionados: Superpoder[] = [];
+  isChecked: boolean = false;
 
   constructor(
-    private heroiService: HeroiService,
-    private superpoderService: SuperpoderService,
-    private formBuilder: FormBuilder,
-    private route: ActivatedRoute
+    private heroiService: HeroisService,
+    private superpoderService: PoderesService,
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder
   ) {
     this.route.params.subscribe(params => {
       this.id = params['id'];
@@ -35,7 +34,7 @@ export class EditarHeroiComponent {
       this.heroi.altura = params['altura'];
       this.heroi.peso = params['peso'];
       this.heroi.superpoderes = params['poderesSelecionados'];
-    })
+    });
 
     this.heroiForm = this.formBuilder.group({
       id: this.id,
@@ -56,13 +55,17 @@ export class EditarHeroiComponent {
       this.listarSuperpoderes();
   }
 
+  atualizarHeroi(id: number, heroi: Heroi) {
+    this.heroiService.editarHeroi(id, heroi);
+  }
+
   onSubmit(): void {
     const heroi = this.heroiForm.value;
     const id = this.id;
     this.atualizarHeroi(id, heroi);
   }
 
-  atualizarHeroi(id: number, heroi: Heroi) {
-    this.heroiService.editarHeroi(id, heroi);
+  adicionarPoder(poder: Superpoder): void {
+    this.poderesSelecionados.push(poder);
   }
 }

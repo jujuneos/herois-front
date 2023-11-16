@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SuperpoderService } from './superpoder.service';
+import { HeroisService } from './herois.service';
 
-describe('SuperpoderService', () => {
-  let service: SuperpoderService;
+describe('HeroisService', () => {
+  let service: HeroisService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(SuperpoderService);
+    service = TestBed.inject(HeroisService);
   });
 
   it('should be created', () => {
