@@ -8,40 +8,37 @@ import { Heroi } from '../models/heroi';
   providedIn: 'root'
 })
 export class HeroisService {
-  private url = 'https://localhost:7238/SuperHerois';
+  mostrarMensagem = true;
+  private url = 'https://localhost:7050/SuperHerois';
 
   constructor(private httpClient: HttpClient, private router: Router) { }
 
   httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json' })
   }
 
   listarHerois(): Observable<Heroi[]> {
       return this.httpClient.get<Heroi[]>(this.url + '/listar');
   }
 
-  consultarHeroi(id: number): any {
+  consultarHeroi(id: number): Observable<any> {
       let parametro: String = id.toString();
-      return this.httpClient.get<Heroi>(this.url + '/' + parametro, this.httpOptions);
+      return this.httpClient.get<any>(this.url + '/' + parametro, this.httpOptions);
   }
 
-  cadastrarHeroi(heroi: Heroi): any {
-      this.httpClient.post<Heroi>(this.url + '/CadastrarHeroi', heroi, this.httpOptions)
-      .subscribe((res) => {
-          this.router.navigate(['']);
-          return alert("Herói cadastrado com sucesso!");
-      }, (err) => {
-          let erro = err.error;
-          return alert(erro);
-      });
+  cadastrarHeroi(heroi: Heroi): Observable<any> {
+      return this.httpClient.post<Heroi>(this.url + '/CadastrarHeroi', heroi, this.httpOptions);
   }
 
   editarHeroi(id: number, heroi: Heroi): any {
       let parametro: String = id.toString();
       this.httpClient.put<Heroi>(this.url + '/' + parametro, heroi, this.httpOptions)
       .subscribe((res) => {
+        this.mostrarMensagem = true;
+        setTimeout(() => {
+          this.mostrarMensagem = false;
+        }, 3000);
           this.router.navigate(['']);
-          return alert("Herói atualizado com sucesso!");
       }, (err) => {
           let erro = err.error;
           return alert(erro);

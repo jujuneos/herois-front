@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Superpoder } from '../../../models/superpoder';
 import { PoderesService } from '../../../services/poderes.service';
 import { HeroisService } from '../../../services/herois.service';
+import { ElementSchemaRegistry } from '@angular/compiler';
 
 @Component({
   selector: 'app-cadastrar',
@@ -12,11 +13,13 @@ import { HeroisService } from '../../../services/herois.service';
   styleUrl: './cadastrar.component.css'
 })
 export class CadastrarComponent implements OnInit {
+  mostrarMensagemSucesso = false;
+  mostrarMensagemErro = false;
+  mensagem = '';
   heroiForm = {} as FormGroup;
   heroi = {} as Heroi;
-  superpoderes: Observable<Superpoder[]> | undefined;
+  superpoderes: Superpoder[] = [];
   poderesSelecionados: Superpoder[] = [];
-  isChecked: boolean = false;
 
   constructor(
     private heroiService: HeroisService,
@@ -28,12 +31,15 @@ export class CadastrarComponent implements OnInit {
       dataNascimento: '',
       altura: ['', Validators.required],
       peso: ['', Validators.required],
-      superpoderes: [[], Validators.required]
+      superpoderes: [[], Validators.required],
+      isChecked: [false]
     });
   };
 
   listarSuperpoderes() {
-    this.poderesService.listarSuperPoderes();
+    this.poderesService.listarSuperPoderes().subscribe(data => {
+      this.superpoderes = data;
+    });
   }
 
   ngOnInit(): void {
@@ -41,7 +47,27 @@ export class CadastrarComponent implements OnInit {
   }
 
   cadastrarHeroi(heroi: Heroi) {
-    this.heroiService.cadastrarHeroi(heroi);
+    this.heroiService.cadastrarHeroi(heroi).subscribe(
+      (response) => {
+        this.mostrarMensagemSucesso = true;
+        this.mensagem = "Herói cadastrado com sucesso!";
+        setTimeout(() => {
+          this.mostrarMensagemSucesso = false;
+        }, 3000);
+      },
+      (error) => {
+        this.mostrarMensagemErro = true;
+        setTimeout(() => {
+          this.mostrarMensagemErro = false;
+        }, 3000);
+        if (error.status === 404)
+          this.mensagem = "Recurso não encontrado.";
+        else if (error.status === 500)
+          this.mensagem = "Erro interno do servidor.";
+        else if (error.status === 400)
+          this.mensagem = "Herói já cadastrado.";
+      }
+    )
   }
 
   onSubmit(): void {

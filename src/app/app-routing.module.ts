@@ -7,7 +7,7 @@ import { EditarComponent } from './crud-superherois/salvar.heroi/editar/editar.c
 const routes: Routes = [
     { path: '', component: PaginaInicialComponent, data: { title: 'Super-Heróis'}},
     { path: 'dados-heroi', component: CadastrarComponent, data: { title: 'Cadastrar Herói'}},
-    { path: 'editar-heroi/:id/:nome/:nomeHeroi/:dataNascimento/:altura/:peso/:superpoderes', component: EditarComponent, data: { title: 'Editar super-herói'}}
+    { path: 'editar-heroi/:id', component: EditarComponent, data: { title: 'Editar super-herói'}}
 ];
 
 @NgModule({

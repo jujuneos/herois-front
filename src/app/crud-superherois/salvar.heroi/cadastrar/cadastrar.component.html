@@ -66,11 +66,11 @@
                   <th>Descrição</th>
                   <th>Selecionar</th>
                 </tr>
-                <tr *ngFor="let poder of superpoderes | async">
+                <tr *ngFor="let poder of superpoderes">
                   <td>{{poder.superpoder}}</td>
                   <td>{{poder.descricao}}</td>
                   <td>
-                    <input type="checkbox" [(ngModel)]="isChecked" (change)="adicionarPoder(poder)">
+                    <input type="checkbox" formControlName="isChecked" (change)="adicionarPoder(poder)">
                   </td>
                 </tr>
               </table>
@@ -79,7 +79,17 @@
       </table>
       <br>
       <div class="card-container">
-        <button class="card" type="submit"><span style="color: #ffffff; font-size: 14px;">Salvar</span></button>
+        <button *ngIf="!mostrarMensagemSucesso && !mostrarMensagemErro" class="card" type="submit"><span style="color: #ffffff; font-size: 14px;">Salvar</span></button>
+        <mat-card *ngIf="mostrarMensagemSucesso" class="success-card">
+          <mat-card-content>
+            <p>{{mensagem}}</p>
+          </mat-card-content>
+        </mat-card>
+        <mat-card *ngIf="mostrarMensagemErro" class="error-card">
+          <mat-card-content>
+            <p>{{mensagem}}</p>
+          </mat-card-content>
+        </mat-card>
       </div>
     </form>
   

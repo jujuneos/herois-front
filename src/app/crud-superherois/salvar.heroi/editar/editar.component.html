@@ -66,11 +66,11 @@
                 <th>Descrição</th>
                 <th>Selecionar</th>
               </tr>
-              <tr *ngFor="let poder in superpoderes">
+              <tr *ngFor="let poder of superpoderes | async">
                 <td>{{poder.superpoder}}</td>
                 <td>{{poder.descricao}}</td>
                 <td>
-                  <input type="checkbox" [(ngModel)]="isChecked" (change)="adicionarPoder(poder)">
+                  <input type="checkbox" formControlName="isChecked" (change)="adicionarPoder(poder)">
                 </td>
               </tr>
             </table>

@@ -31,22 +31,20 @@ export class PaginaInicialComponent implements OnInit {
   editarHeroi(heroi: Heroi) {
     this.router.navigate([
       '/editar-heroi',
-      heroi.id,
-      heroi.nome,
-      heroi.nomeHeroi,
-      heroi.dataNascimento,
-      heroi.altura,
-      heroi.peso,
-      heroi.superpoderes
+      heroi.id
     ]);
   }
 
   deletarHeroi(heroi: Heroi) {
     if (confirm("Deseja excluir o herói " + heroi.nomeHeroi + "?")) {
-      this.heroiService.deletarHeroi(heroi.id).subscribe(() => {
-        this.listarHerois();
-        alert("Herói deletado com sucesso.");
-      })
+      this.heroiService.deletarHeroi(heroi.id).subscribe(
+        (response) => {
+          const atualUrl = this.router.url;
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this.router.navigate([atualUrl]);
+          })
+        }
+      )
     }
   }
 

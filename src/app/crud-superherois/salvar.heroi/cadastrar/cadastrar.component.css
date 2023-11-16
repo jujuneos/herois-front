@@ -154,6 +154,16 @@
     height: 23px;
   }
 
+  .success-card {
+    background-color: #4caf50;
+    color: #ffffff;
+  }
+
+  .error-card {
+    background-color: #FF0000;
+    color: #ffffff;
+  }
+
   /* Responsive Styles */
   @media screen and (max-width: 767px) {
     .card-container > *:not(.circle-link) ,

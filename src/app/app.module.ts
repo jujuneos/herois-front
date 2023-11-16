@@ -8,6 +8,8 @@ import { AppRoutingModule } from "./app-routing.module";
 import { HttpClientModule } from "@angular/common/http";
 import { CadastrarComponent } from './crud-superherois/salvar.heroi/cadastrar/cadastrar.component';
 import { EditarComponent } from './crud-superherois/salvar.heroi/editar/editar.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
     declarations: [
@@ -22,7 +24,9 @@ import { EditarComponent } from './crud-superherois/salvar.heroi/editar/editar.c
         AppRoutingModule,
         ReactiveFormsModule,
         HttpClientModule,
-        FormsModule
+        FormsModule,
+        MatButtonModule,
+        MatCardModule
     ],
     providers: [],
     bootstrap: [AppComponent]

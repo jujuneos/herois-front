@@ -7,7 +7,7 @@ import { Superpoder } from '../models/superpoder';
   providedIn: 'root'
 })
 export class PoderesService {
-  private url = 'https://localhost:7238/SuperPoderes';
+  private url = 'https://localhost:7050/SuperPoderes';
 
   constructor(private httpClient: HttpClient) { }
 

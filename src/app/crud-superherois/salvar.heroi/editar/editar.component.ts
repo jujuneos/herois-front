@@ -33,7 +33,7 @@ export class EditarComponent implements OnInit {
       this.heroi.dataNascimento = params['dataNascimento'];
       this.heroi.altura = params['altura'];
       this.heroi.peso = params['peso'];
-      this.heroi.superpoderes = params['poderesSelecionados'];
+      this.heroi.superpoderes = params['superpoderes'];
     });
 
     this.heroiForm = this.formBuilder.group({
@@ -43,7 +43,8 @@ export class EditarComponent implements OnInit {
       dataNascimento: '',
       altura: '',
       peso: '',
-      superpoderes: []
+      superpoderes: [],
+      isChecked: [false]
     });
   }
 
@@ -51,7 +52,20 @@ export class EditarComponent implements OnInit {
     this.superpoderes = this.superpoderService.listarSuperPoderes();
   }
 
+  consultarHeroi() {
+    this.heroiService.consultarHeroi(this.id).subscribe(
+      (response) => {
+        this.heroi = response;
+      },
+      (error) => {
+        console.log("Erro");
+      }
+    );
+    console.log(this.heroi);
+  }
+
   ngOnInit(): void {
+      this.consultarHeroi();
       this.listarSuperpoderes();
   }
 
